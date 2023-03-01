@@ -1,6 +1,7 @@
 package seminars.third.tdd;
 
 import org.junit.jupiter.api.Test;
+import seminars.third.coverage.User;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,6 +14,10 @@ public class UserTest {
      */
     @Test
     void userCreation() {
+        User user = new User("lgn", "qwerty");
+        String login = "lgn";
+        String pass = "qwerty";
+        assertTrue(user.auth(login, pass));
     }
 
 

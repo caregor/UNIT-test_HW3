@@ -4,15 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import seminars.third.coverage.hw.Homewowrk;
+import seminars.third.coverage.hw.Homework;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HomeworkTest {
-    private Homewowrk hw;
+    private Homework hw;
     @BeforeEach
     void init(){
-        hw = new Homewowrk();
+        hw = new Homework();
     }
     @Test
     void evenNumber(){

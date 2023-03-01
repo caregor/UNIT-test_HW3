@@ -5,6 +5,14 @@ import java.util.Objects;
 public class User {
     public String name;
     public String pass;
+    private boolean authenticate = false;
+    public boolean isAuthenticate() {
+        return authenticate;
+    }
+
+    public void setAuthenticate(boolean authenticate) {
+        this.authenticate = authenticate;
+    }
 
     public User(String name, String pass) {
         this.name = name;

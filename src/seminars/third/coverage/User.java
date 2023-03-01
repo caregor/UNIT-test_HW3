@@ -6,6 +6,15 @@ public class User {
     public String name;
     public String pass;
     private boolean authenticate = false;
+    private boolean admin = false;
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public boolean isAuthenticate() {
         return authenticate;
     }

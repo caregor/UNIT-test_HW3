@@ -37,5 +37,17 @@ public class UserTest {
 
         assertFalse(repository.addUser(user));
     }
+    // Tests for Task 5
+    @Test
+    void logoutIfNotAdmin(){
+        UserRepository repository = new UserRepository();
+        User user1 = new User("user1", "qwerty");
+        User user2 = new User("user2", "qwerty");
+        user1.setAuthenticate(true);
+        user2.setAuthenticate(true);
+        repository.addUser(user1);
+        repository.addUser(user2);
+        assertTrue(repository.logoutUsers(repository));
+    }
 
 }

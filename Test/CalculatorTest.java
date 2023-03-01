@@ -1,17 +1,26 @@
 
+import jdk.jfr.Name;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Locale;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculatorTest {
+    private Calculator calculator;
+    @BeforeEach
+    void init(){
+        calculator = new Calculator();
+    }
     @Test
     void evaluatesExpression() {
         Calculator calculator = new Calculator();
@@ -102,4 +111,43 @@ public class CalculatorTest {
     // P=2πR (Для окружности с радиусом 10 длина окружности = 62.83185307179586)
     @Test
     void computeLengthCircle() {}
+
+
+    // ДЗ №1. Разбить большой метод под номером 3 и проверить покрытие(должно быть 100%)
+    @ParameterizedTest
+    @CsvSource({
+            "0.9, 1, 10",
+            "100, 100, 0",
+            "99, 100, 1",
+            "500, 1000, 50",
+            "10, 1000, 99",
+            "0, 100,100"
+    })
+    void positiveTestsCalculatingDiscount(double expected, double inputA, int inputB){
+        assertEquals(expected, calculator.calculatingDiscount(inputA,inputB));
+    }
+    @Test
+    void negativeTestBigDiscount(){
+        assertThatThrownBy(() ->
+                calculator.calculatingDiscount(2000.0, 101))
+                .isInstanceOf(ArithmeticException.class)
+                .hasMessage("Скидка должна быть в диапазоне от 0 до 100%"); // процент скидки больше 100%
+    }
+    @Test
+    void negativeTestLessDiscount(){
+        Exception exception = assertThrows(ArithmeticException.class, () ->
+                calculator.calculatingDiscount(2000.0, -1));
+
+        String expectedMessage = "Скидка должна быть в диапазоне от 0 до 100%";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+    @Test
+    void negativeTestLessPurchaseAmount(){
+        assertThatThrownBy(() ->
+                calculator.calculatingDiscount(-0.01, 10))
+                .isInstanceOf(ArithmeticException.class)
+                .hasMessage("Сумма покупки не может быть отрицательной"); // процент скидки больше 100%
+    }
 }

@@ -20,6 +20,7 @@ public class UserTest {
         String pass = "qwerty";
         assertTrue(user.auth(login, pass));
     }
+   //Tests for Task 4
     @Test
     void addAuthenticatedUserToList(){
         UserRepository repository = new UserRepository();

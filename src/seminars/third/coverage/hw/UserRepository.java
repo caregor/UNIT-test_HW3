@@ -5,6 +5,7 @@ import seminars.third.coverage.User;
 import java.util.ArrayList;
 import java.util.List;
 
+//Task 4
 public class UserRepository {
     private List<User> users = new ArrayList<>();
     public boolean addUser(User user){

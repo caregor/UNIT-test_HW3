@@ -1,10 +1,10 @@
 package seminars.third.tdd;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seminars.third.coverage.User;
 import seminars.third.coverage.hw.UserRepository;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,12 +20,19 @@ public class UserTest {
         String pass = "qwerty";
         assertTrue(user.auth(login, pass));
     }
-   //Tests for Task 4
+   //HomeWork
+    private UserRepository repository;
+    private User user,user1,user2;
+    @BeforeEach
+    void init(){
+        repository = new UserRepository();
+        user = new User("lgn", "qwerty");
+        user1 = new User("user1", "qwerty");
+        user2 = new User("user2", "qwerty");
+    }
+    // Test for Task 4
     @Test
     void addAuthenticatedUserToList(){
-        UserRepository repository = new UserRepository();
-        User user = new User("lgn", "qwerty");
-
         user.setAuthenticate(true);
 
         assertTrue(repository.addUser(user));
@@ -40,14 +47,24 @@ public class UserTest {
     // Tests for Task 5
     @Test
     void logoutIfNotAdmin(){
-        UserRepository repository = new UserRepository();
-        User user1 = new User("user1", "qwerty");
-        User user2 = new User("user2", "qwerty");
         user1.setAuthenticate(true);
         user2.setAuthenticate(true);
+        user1.setAdmin(true);
         repository.addUser(user1);
         repository.addUser(user2);
-        assertTrue(repository.logoutUsers(repository));
+
+        assertTrue(repository.logoutAllIfNotAdmin());
+    }
+    @Test
+    void trylogoutIfAllAdmins(){
+        user1.setAuthenticate(true);
+        user2.setAuthenticate(true);
+        user1.setAdmin(true);
+        user2.setAdmin(true);
+        repository.addUser(user1);
+        repository.addUser(user2);
+
+        assertFalse(repository.logoutAllIfNotAdmin());
     }
 
 }

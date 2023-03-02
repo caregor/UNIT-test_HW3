@@ -20,7 +20,7 @@ public class UserTest {
         String pass = "qwerty";
         assertTrue(user.auth(login, pass));
     }
-   //HomeWork
+   //HomeWork 3
     private UserRepository repository;
     private User user,user1,user2;
     @BeforeEach
@@ -56,7 +56,7 @@ public class UserTest {
         assertTrue(repository.logoutAllIfNotAdmin());
     }
     @Test
-    void trylogoutIfAllAdmins(){
+    void tryLogoutIfAllAdmins(){
         user1.setAuthenticate(true);
         user2.setAuthenticate(true);
         user1.setAdmin(true);
